@@ -1,0 +1,156 @@
+<html>
+
+<head>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 18 10%;
+        }
+
+        figure {
+            text-align: center;
+        }
+
+        img {
+            display: inline-block;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            font-size: 11.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Final Project: Mesh Morphing & Animation Toolkit</h1>
+        <div style="text-align: center;">Names: Tamnhi Vu, Brandon Lai, Tara Pande, and Samuel German </div>
+        <br>
+        <div style="text-align: center"> Link to webpage:
+            <br> <a href="https://tamnhivu.github.io/Final-Writeup/">https://tamnhivu.github.io/Final-Writeup/</a>
+        </div>
+
+        <div style="text-align: center"> Link to Video:
+            <br> <a href="https://www.youtube.com/watch?v=bV2DG_qFEog">https://www.youtube.com/watch?v=bV2DG_qFEog</a>
+        </div>
+
+        <div style="text-align: center"> Link to Slides:
+            <br> <a
+                href="https://docs.google.com/presentation/d/1I3Xu7bM8VF1fQfLU2BYJXJCUOlqf1WQrvbJi7dYZm9s/edit?usp=sharing">https://docs.google.com/presentation/d/1I3Xu7bM8VF1fQfLU2BYJXJCUOlqf1WQrvbJi7dYZm9s/edit?usp=sharing</a>
+        </div>
+
+        <figure>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <table>
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="morphing.gif" width="100px" />
+                            <figcaption>Our goal</figcaption>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </figure>
+
+
+        <!--
+		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+		-->
+
+        <h2>Final Report</h2>
+        Our project goal is to morph 2 arbitrary meshes together in a way that maintains mesh topology while preserving vertex relationships and 
+        which supports real-time, interactive manipulation. We addressed these challenges by extending geometric modeling techniques studied in
+        our coursework—specifically using linear interpolation to define smooth paths in 3D space and applying advanced mesh processing algorithms
+        such as linear solvers to ensure stability. These tools allow us to control the flow of deformation globally, enabling natural transitions
+        even under complex shape changes.
+
+        <h2>Abstract</h2>
+        In this project, we developed an interactive 3D model morphing system using Three.js, enabling users to visually morph between two 3D models
+        in real time through a web-based interface. The system allows users to choose from a variety of morphing algorithms to control how the vertices
+        from the start model correspond to those in the end model. Several morphing algorithms were implemented, ranging from basic linear morphing to 
+        proximity-based matching and customized algorithms prioritizing unique or extreme points. To enhance performance, backend computations were 
+        written in C++ and integrated into the JavaScript frontend. While we successfully achieved core morphing functionality and a flexible GUI, 
+        challenges such as inconsistent vertex counts, varying vertex orderings, and difficulties in capturing fine morph details highlighted the 
+        limitations of proximity-based correspondence alone. In the final stretch, we also began exploring volumetric morphing techniques using Signed
+        Distance Fields (SDFs) and Marching Cubes as a promising future direction.
+
+        <h2>Technical Approach</h2>
+        The frontend of the system was designed entirely from scratch using Three.js, responsible for rendering the scene, handling camera controls,
+        lighting, shading, GUI interactions, and model loading. A structured directory was set up to manage different components, including build files, 
+        textures, models, JavaScript modules, and test pages. The system initialization was handled by the init() function, which set up the renderer, camera, 
+        lighting, event listeners, camera controls, scene objects, shading, and GUI controls. Morphing actions and updates were triggered either by direct GUI 
+        inputs or as part of the rendering cycle through the render() function.
+
+        <h2>Problems Encountered</h2>
+        Several significant challenges arose during the course of this project. One of the earliest issues involved dealing with models that had different numbers
+        of vertices. Without consistent vertex counts, one-to-one vertex mapping for morphing was impossible. This was resolved by introducing a uniform sampling
+        step to standardize the vertex count between models. A second major challenge was inconsistent vertex ordering between models, meaning that even if models
+        had the same number of vertices, their order in the data structure differed. As a result, applying transformations vertex-to-vertex led to distortions. To 
+        overcome this, several proximity-based correspondence algorithms were implemented, each with its own criteria for determining the best match between vertices.
+        However, even these methods had limitations, particularly in preserving finer morphing details. Another challenge involved integrating backend C++ logic into
+        the JavaScript-based frontend. This was initially difficult due to differences in the two environments but was ultimately achieved successfully, allowing 
+        computationally intensive correspondence calculations to be performed more efficiently. Lastly, the discovery of SDF-based morphing as a promising solution 
+        for many of these challenges came relatively late in the project. Although preliminary work was started on implementing this technique using Marching Cubes, 
+        there was insufficient time to integrate it fully into the final system.
+
+        <h2>Lessons Learned</h2>
+        This project reinforced the importance of consistent and well-preprocessed model data when working with geometry-based algorithms. The complications caused 
+        by inconsistent vertex counts and orderings were major obstacles that could have been mitigated through early, standardized pre-processing of model assets.
+        Another key takeaway was the recognition that proximity-based correspondence algorithms, while effective for general shape morphing, struggle with preserving 
+        fine details. Specialized algorithms that prioritize unique or extreme points can help improve morphing in critical areas, but more advanced methods such as 
+        volumetric morphing are likely needed for high-fidelity results. The project also demonstrated the feasibility of integrating C++ backend logic into a JavaScript 
+        frontend, which proved valuable for handling computationally heavy operations in a browser-based application. Finally, this experience emphasized the importance 
+        of scoping ambitious ideas realistically within project timelines and prioritizing foundational functionality before pursuing advanced experimental features.
+        
+        <h2>Results</h2>
+        The final system successfully delivered a functional interactive 3D model morphing application capable of morphing between two 3D models in Collada format. 
+        The system featured a real-time GUI interface that allowed users to select morphing algorithms, adjust the morphing amount via a slider, and switch between 
+        various shading modes for better visual analysis. Five morphing algorithms were fully implemented and accessible through the interface, each demonstrating 
+        different behaviors in the morphing process. Although proximity-based matching struggled with capturing fine details, the implemented correspondence 
+        algorithms effectively demonstrated the core concept of controlled morphing based on vertex relationships. Additionally, a partial prototype of a Signed 
+        Distance Field morphing system using Marching Cubes was developed and tested independently, providing a strong foundation for future enhancement of the 
+        system beyond proximity-based techniques.
+        
+        <h2>References</h2>
+        We used homework 2 in order to build off!
+
+        <h2>Contributions</h2>
+        Tara made significant contributions to this project, developing the entire frontend system using Three.js. Tara designed and implemented the GUI, 
+        integrated shading options (including wireframe, flat, glossy, reflective, and smooth), and managed all rendering and scene setup functionality. 
+        Additionally, Tara handled the integration of C++ backend logic into the JavaScript frontend, enabling efficient backend computations for real-time 
+        morphing. Tara was also responsible for creating the basic morphing algorithm, incorporating Tamnhi’s applyTransformation() function into the updateMorph() 
+        process, and developing multiple correspondence algorithms including extreme, unique, and complete matching variants that built off Tamnhi's findClosestPoints()
+        algorithm. Beyond the final deliverable, Tara began work on an SDF-based morphing prototype using Marching Cubes, which although incomplete, 
+        laid important groundwork for future volumetric morphing techniques. Further contributions included adding mesh translation features for scene navigation 
+        and implementing advanced texture shading options to improve visual clarity in the morphing demonstrations.
+
+        <p></p>
+        Tamnhi was contributed extensively to the backend system and algorithm design. She initially implemented the applyTransformation() function, which
+        utilized linear interpolation to move each vertex from its source to target position, forming the foundation for the morphing process used in the
+        final application. To support this, she created a custom Vec3 class to handle essential 3D vector operations, simplifying the implementation of
+        morphing transformations and geometric calculations throughout the backend. Early in the project, Tamnhi proposed and experimented with alternative
+        interpolation methods beyond linear, including quadratic and cubic Bézier interpolations, anticipating that these could produce smoother and more
+        visually appealing morphs for certain mesh pairs. However, as the project progressed and the focus shifted toward building a fully integrated mesh
+        morphing application with linear-based implementation better suited to the project's immediate goals. Tamnhi also implemented the original version of the 
+        findClosestPoints() algorithm, which performed proximity-based vertex correspondence between meshes. This function became the base for the more 
+        advanced correspondence algorithms later developed by Tara. As vertex ordering inconsistencies between models became an issue, Tamnhi explored 
+        solutions such as a centroid-based vertex ordering algorithm, which sorted vertices by their angular position around the mesh’s centroid. Although 
+        promising, this method was ultimately not included in the final implementation, as the team decided to prioritize simpler, proximity-based solutions 
+        that aligned more closely with the final morphing pipeline. In addition to these core contributions, Tamnhi developed utility functions for uniform 
+        sampling, which allowed different meshes to be standarized when passed into the updateMorph(). In the beginning, she also implemented Laplacian smoothing 
+        for mesh refinement and an Iterative Closest Point (ICP) routine to support mesh alignment experiments. While not all experimental features were integrated 
+        into the final application, they provided valuable insight into possible extensions for future work. Tamnhi also took charge of drafting and finalizing the 
+        project documentation and technical write-ups.
+
+
+        
