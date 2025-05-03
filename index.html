@@ -86,8 +86,8 @@
         endModel. Specifically after waiting for both .dae models to load, we perform a uniform sampling 
         on both meshes to collect their vertices into a list. Afterwards, depending on the desired vertex matching morph algorithm, we call the correct 
         findClosestPoints() method which calculates the correspondence between the vertices of both meshes. Then, we create a new Mesh object for our startingMesh, 
-        rotating and scaling it for visual appeal, and then adding it to the scene. Finally, we call morphMesh() and re-render the entire scene and camera. 
-        The morphMesh() is called inside loadModels() and whenever the morph slider moves in the GUI. This method uses linear interpolation to translate the 
+        rotating and scaling it for visual appeal, and then adding it to the scene. Finally, we call updateMorph() and re-render the entire scene and camera. 
+        The updateMorph() is called inside loadModels() and whenever the morph slider moves in the GUI. This method uses linear interpolation to translate the 
         vertices from their location in the startModel to their location in the endModel, considering correspondence when needed. After the vertex positions have 
         been updated, we re-render the entire scene and camera. 
         
@@ -219,7 +219,7 @@
         <p></p>
         Brandon was primarily responsible for developing the advanced morphing algorithms and integrating the backend computational logic with the frontend user 
         interface. A key technical challenge he addressed was enabling morphing between meshes with different vertex counts and topologies — a limitation in the 
-        initial basic morphing implementation. His main contribution was the design and implementation of the morphMeshes function, which facilitated morphing 
+        initial basic morphing implementation. His main contribution was the design and implementation of the updateMorph function, which facilitated morphing 
         between dissimilar models. This relied on the uniformSample method, which intelligently down-sampled both meshes to an equal number of vertices while 
         preserving their overall structure. To establish meaningful vertex correspondences, Brandon implemented the findClosestPoints algorithm, which uses 3D 
         Euclidean distance calculations to determine optimal pairings between vertices, allowing for smooth and visually coherent transformations even between 
@@ -240,7 +240,7 @@
         smooth meshes using no edge split or flips while preserving the topology of the mesh. The centroid for every vertex given its neighbours is computed, and 
         we move towards its center with a Laplacian smoothing step. A single parameter, smoothing weight, is used to effectuate this. The significance of this is 
         that typically, to refine and smooth triangle meshes, we typically split edges to add new vertices and new faces, as well as flip edges, which, to some 
-        degree, involves topological deformations that corrupt the shape of the mesh
+        degree, involves topological deformations that corrupt the shape of the mesh.
 
 
 
