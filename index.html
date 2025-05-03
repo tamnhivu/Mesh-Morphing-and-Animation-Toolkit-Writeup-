@@ -63,9 +63,6 @@
         </figure>
 
 
-        <!--
-		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
 
         <h2>Final Report Overview</h2>
         In this project, we developed an interactive 3D model morphing system using Three.js, enabling users to visually morph between two 3D models
@@ -81,16 +78,20 @@
         The frontend of the system was designed entirely from scratch using Three.js, a JavaScript 3D Library. First, we initialize a PerspectiveCamera, 
         WebGLRenderer, OrbitControls, Scene, and GUI using three.module.js and add-ons. We also define a series of shading options: wireframe, flat, smooth, 
         glossy, and reflective using various MeshMaterial, Lighting, and TextureLoading methods from Three.js. Then we render the scene and camera, making 
-        sure to account for the correct shading parameter specified in the GUI. We re-render the scene whenever a different shading option is selected by the
-        GUI. Our GUI calls two key methods in order to perform 3D mesh morphing: loadModels() and updateMorph(). First, whenever the Start Model, End Model, 
-        or Morphing Algorithm is changed in the drop down, our GUI calls loadModels(). First, loadModels() remove the old mesh from the scene. Then we initialize 
-        a new ColladaLoader in order to load the startModel and endModel. Specifically after waiting for both .dae models to load, we perform a uniform sampling 
+        sure to account for the correct shading parameter specified in the GUI. We re-render the scene whenever a different shading option is selected by the GUI. 
+        
+        <p></p>Our GUI calls two key methods in order to perform 3D mesh morphing: loadModels() and updateMorph(). 
+        First, whenever the Start Model, End Model, or Morphing Algorithm is changed in the drop down, our GUI calls loadModels(). 
+        First, loadModels() remove the old mesh from the scene. Then we initialize a new ColladaLoader in order to load the startModel and 
+        endModel. Specifically after waiting for both .dae models to load, we perform a uniform sampling 
         on both meshes to collect their vertices into a list. Afterwards, depending on the desired vertex matching morph algorithm, we call the correct 
         findClosestPoints() method which calculates the correspondence between the vertices of both meshes. Then, we create a new Mesh object for our startingMesh, 
         rotating and scaling it for visual appeal, and then adding it to the scene. Finally, we call morphMesh() and re-render the entire scene and camera. 
         The morphMesh() is called inside loadModels() and whenever the morph slider moves in the GUI. This method uses linear interpolation to translate the 
         vertices from their location in the startModel to their location in the endModel, considering correspondence when needed. After the vertex positions have 
-        been updated, we re-render the entire scene and camera. Our mesh morphing and animation toolkit utilizes 5 different vertex matching morph algorithms. 
+        been updated, we re-render the entire scene and camera. 
+        
+        <p></p>Our mesh morphing and animation toolkit utilizes 5 different vertex matching morph algorithms. 
         First, our “complete” algorithm only translates meshes from the StartMesh to the EndMesh without considering where those vertices originated. This gives 
         the morphing a “rearranging atoms” appearance. And while it works, it isn’t what you typically envision as a smooth mesh morphing. This is what prompted 
         us to design the brute-force “closest” algorithm. For each source vertex, the “closest” algorithm loops through all target vertices and calculates the 
